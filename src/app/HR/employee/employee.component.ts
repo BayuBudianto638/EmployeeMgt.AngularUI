@@ -23,6 +23,7 @@ export class EmployeeComponent extends PagedListingComponentBase<EmployeeDto> im
         'dd/MM/yyyy'
     ];
     dateNowISO: Date;
+    advancedFiltersVisible = false;
 
     constructor(injector: Injector,
         private _employeeService: EmployeeServiceProxy,
