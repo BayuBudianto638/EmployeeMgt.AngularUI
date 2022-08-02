@@ -6,7 +6,7 @@ import { PagedListingComponentBase, PagedRequestDto } from '../../../shared/page
 import { EmployeeDto, EmployeeDtoPagedResultDto, EmployeeServiceProxy } from '../../../shared/service-proxies/service-proxies';
 import { CreateEmployeeComponent } from './create-employee/create-employee.component';
 import { EditEmployeeComponent } from './edit-employee/edit-employee.component';
-class PagedCityRequestDto extends PagedRequestDto {
+class PagedEmployeeRequestDto extends PagedRequestDto {
     keyword: string;
 }
 
@@ -33,7 +33,7 @@ export class EmployeeComponent extends PagedListingComponentBase<EmployeeDto> im
     }
 
     list(
-        request: PagedCityRequestDto,
+        request: PagedEmployeeRequestDto,
         pageNumber: number,
         finishedCallback: Function
     ): void {
@@ -53,7 +53,7 @@ export class EmployeeComponent extends PagedListingComponentBase<EmployeeDto> im
 
     delete(employee: EmployeeDto): void {
         abp.message.confirm(
-            this.l('CityDeleteWarningMessage', employee.userName),
+            this.l('EmployeeDeleteWarningMessage', employee.userName),
             undefined,
             (result: boolean) => {
                 if (result) {
