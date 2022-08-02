@@ -1,0 +1,35 @@
+<form class="form-horizontal"
+      autocomplete="off"
+      #createemployeeModal="ngForm"
+      (ngSubmit)="save()">
+    <abp-modal-header [title]="'CreateNewEmployee' | localize"
+                      (onCloseClick)="bsModalRef.hide()"></abp-modal-header>
+    <div class="modal-body">
+        <tabset>
+            <tab [heading]="'Details' | localize" class="pt-3 px-2">
+                <div class="form-group row required">
+                    <label class="col-md-3 col-form-label" for="userName">
+                        {{ "userName" | localize }}
+                    </label>
+                    <div class="col-md-9">
+                        <input type="text"
+                               class="form-control"
+                               name="userName"
+                               id="userName"
+                               required
+                               minlength="2"
+                               maxlength="32"
+                               [(ngModel)]="Employee.userName"
+                               #nameModel="ngModel"
+                               #nameEl />
+                        <!--<abp-validation-summary [control]="nameModel"
+                                                [contEmployeel]="nameEl"></abp-validation-summary>-->
+                    </div>
+                </div>
+            </tab>
+        </tabset>
+    </div>
+    <abp-modal-footer [cancelDisabled]="saving"
+                      [saveDisabled]="!createemployeeModal.form.valid || saving"
+                      (onCancelClick)="bsModalRef.hide()"></abp-modal-footer>
+</form>

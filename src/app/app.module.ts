@@ -39,6 +39,8 @@ import { SidebarLogoComponent } from './layout/sidebar-logo.component';
 import { SidebarUserPanelComponent } from './layout/sidebar-user-panel.component';
 import { SidebarMenuComponent } from './layout/sidebar-menu.component';
 import { EmployeeComponent } from './HR/employee/employee.component';
+import { CreateEmployeeComponent } from './HR/employee/create-employee/create-employee.component';
+import { EditEmployeeComponent } from './HR/employee/edit-employee/edit-employee.component';
 
 @NgModule({
     declarations: [
@@ -71,6 +73,8 @@ import { EmployeeComponent } from './HR/employee/employee.component';
         SidebarMenuComponent,
         //Employee
         EmployeeComponent,
+        CreateEmployeeComponent,
+        EditEmployeeComponent,
         //CreateMajorComponent,
         //EditMajorComponent,
     ],
