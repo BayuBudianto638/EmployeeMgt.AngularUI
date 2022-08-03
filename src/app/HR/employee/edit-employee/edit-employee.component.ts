@@ -12,6 +12,7 @@ export class EditEmployeeComponent extends AppComponentBase implements OnInit {
     saving = false;
     id: number;
     Employee = new EmployeeEditDto();
+    groups: Array<string>;
 
     @Output() onSave = new EventEmitter<any>();
 
@@ -29,11 +30,22 @@ export class EditEmployeeComponent extends AppComponentBase implements OnInit {
             .get(this.id)
             .subscribe((result: EmployeeDto) => {
                 this.Employee = result;
+                console.log(this.Employee);
             });
+
+        this.getGroup();
+    }
+
+    getGroup(): void {
+        let groupsItem: Array<string>;
+        groupsItem = ['Direktur', 'Manager', 'Supervisor'];
+        this.groups = groupsItem;
     }
 
     save(): void {
         this.saving = true;
+
+        alert(this.Employee.id);
 
         const Employee = new EmployeeDto();
         Employee.init(this.Employee);

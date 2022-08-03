@@ -4129,7 +4129,7 @@ export class EmployeeServiceProxy {
      * @return Success
      */
     create(body: CreateEmployeeDto | undefined): Observable<EmployeeDto> {
-        let url_ = this.baseUrl + "/api/services/app/Employee/Create";
+        let url_ = this.baseUrl + "/api/services/app/Employee/CreateMsEmployee";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
@@ -4185,8 +4185,10 @@ export class EmployeeServiceProxy {
      * @return Success
      */
     update(body: EmployeeDto | undefined): Observable<EmployeeDto> {
-        let url_ = this.baseUrl + "/api/services/app/Employee/Update";
+        let url_ = this.baseUrl + "/api/services/app/Employee/UpdateMsEmployee";
         url_ = url_.replace(/[?&]$/, "");
+
+        console.log(body);
 
         const content_ = JSON.stringify(body);
 

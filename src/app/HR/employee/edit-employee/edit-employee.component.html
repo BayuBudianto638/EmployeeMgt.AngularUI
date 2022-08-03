@@ -7,19 +7,178 @@
     <div class="modal-body">
         <tabset>
             <tab [heading]="'Details' | localize" class="pt-3 px-2">
+                <div class="col-md-9">
+                    <input type="hidden"
+                           class="form-control"
+                           name="id"
+                           id="id"
+                           required
+                           minlength="2"
+                           maxlength="32"
+                           [(ngModel)]="Employee.id"
+                           #nameModel="ngModel"
+                           #nameEl />
+                </div>
+
                 <div class="form-group row required">
-                    <label class="col-md-3 col-form-label" for="name">
-                        {{ "EmployeeName" | localize }}
+                    <label class="col-md-3 col-form-label" for="userName">
+                        {{ "userName" | localize }}
                     </label>
                     <div class="col-md-9">
                         <input type="text"
                                class="form-control"
-                               name="name"
-                               id="name"
+                               name="userName"
+                               id="userName"
                                required
                                minlength="2"
                                maxlength="32"
                                [(ngModel)]="Employee.userName"
+                               #nameModel="ngModel"
+                               #nameEl />
+                        <abp-validation-summary [control]="nameModel"
+                                                [controlEl]="nameEl"></abp-validation-summary>
+                    </div>
+                </div>
+                <div class="form-group row required">
+                    <label class="col-md-3 col-form-label" for="firstName">
+                        {{ "firstName" | localize }}
+                    </label>
+                    <div class="col-md-9">
+                        <input type="text"
+                               class="form-control"
+                               name="firstName"
+                               id="firstName"
+                               required
+                               minlength="2"
+                               maxlength="32"
+                               [(ngModel)]="Employee.firstName"
+                               #nameModel="ngModel"
+                               #nameEl />
+                        <abp-validation-summary [control]="nameModel"
+                                                [controlEl]="nameEl"></abp-validation-summary>
+                    </div>
+                </div>
+                <div class="form-group row required">
+                    <label class="col-md-3 col-form-label" for="lastName">
+                        {{ "lastName" | localize }}
+                    </label>
+                    <div class="col-md-9">
+                        <input type="text"
+                               class="form-control"
+                               name="lastName"
+                               id="lastName"
+                               required
+                               minlength="2"
+                               maxlength="32"
+                               [(ngModel)]="Employee.lastName"
+                               #nameModel="ngModel"
+                               #nameEl />
+                        <abp-validation-summary [control]="nameModel"
+                                                [controlEl]="nameEl"></abp-validation-summary>
+                    </div>
+                </div>
+                <div class="form-group row required">
+                    <label class="col-md-3 col-form-label" for="email">
+                        {{ "email" | localize }}
+                    </label>
+                    <div class="col-md-9">
+                        <input type="text"
+                               class="form-control"
+                               name="email"
+                               id="email"
+                               required
+                               minlength="2"
+                               maxlength="256"
+                               pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{1,})+$"
+                               [(ngModel)]="Employee.email"
+                               #nameModel="ngModel"
+                               #nameEl />
+                        <abp-validation-summary [control]="nameModel"
+                                                [controlEl]="nameEl"></abp-validation-summary>
+                    </div>
+                </div>
+                <div class="form-group row required">
+                    <label class="col-md-3 col-form-label" for="birthDate">
+                        {{ "birthDate" | localize }}
+                    </label>
+                    <div class="col-md-9">
+                        <input type="text"
+                               class="form-control datetimepicker-input"
+                               name="birthDate"
+                               id="birthDate"
+                               required
+                               minlength="2"
+                               maxlength="32"
+                               [(ngModel)]="Employee.birthDate"
+                               #nameModel="ngModel"
+                               #nameEl />
+                        <abp-validation-summary [control]="nameModel"
+                                                [controlEl]="nameEl"></abp-validation-summary>
+                    </div>
+                </div>
+                <div class="form-group row required">
+                    <label class="col-md-3 col-form-label" for="basicSalary">
+                        {{ "basicSalary" | localize }}
+                    </label>
+                    <div class="col-md-9">
+                        <input type="text"
+                               class="form-control"
+                               name="basicSalary"
+                               id="basicSalary"
+                               required
+                               minlength="2"
+                               maxlength="32"
+                               [(ngModel)]="Employee.basicSalary"
+                               #nameModel="ngModel"
+                               #nameEl />
+                        <abp-validation-summary [control]="nameModel"
+                                                [controlEl]="nameEl"></abp-validation-summary>
+                    </div>
+                </div>
+                <div class="form-group row required">
+                    <label class="col-md-3 col-form-label" for="status">
+                        {{ "status" | localize }}
+                    </label>
+                    <div class="col-md-9">
+                        <input type="text"
+                               class="form-control"
+                               name="status"
+                               id="status"
+                               required
+                               minlength="2"
+                               maxlength="32"
+                               [(ngModel)]="Employee.status"
+                               #nameModel="ngModel"
+                               #nameEl />
+                        <abp-validation-summary [control]="nameModel"
+                                                [controlEl]="nameEl"></abp-validation-summary>
+                    </div>
+                </div>
+                <div class="form-group row required">
+                    <label class="col-md-3 col-form-label" for="group">
+                        {{ "group" | localize }}
+                    </label>
+                    <div class="col-md-9">
+                        <select id="group" #Id="ngModel" class="hideLabel form-control" [(ngModel)]="Employee.group" name="group" (click)="getGroup();">
+                            <option [ngValue]="item" *ngFor="let item of groups">
+                                {{item}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row required">
+                    <label class="col-md-3 col-form-label" for="description">
+                        {{ "description" | localize }}
+                    </label>
+                    <div class="col-md-9">
+                        <input type="text"
+                               class="form-control"
+                               name="description"
+                               id="description"
+                               required
+                               minlength="2"
+                               maxlength="32"
+                               [(ngModel)]="Employee.description"
                                #nameModel="ngModel"
                                #nameEl />
                         <abp-validation-summary [control]="nameModel"
