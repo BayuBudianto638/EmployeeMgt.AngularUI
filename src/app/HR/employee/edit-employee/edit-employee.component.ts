@@ -45,8 +45,6 @@ export class EditEmployeeComponent extends AppComponentBase implements OnInit {
     save(): void {
         this.saving = true;
 
-        alert(this.Employee.id);
-
         const Employee = new EmployeeDto();
         Employee.init(this.Employee);
 

@@ -87,11 +87,9 @@
                                    name="birthDate"
                                    id="birthDate"
                                    required
-                                   minlength="2"
-                                   maxlength="32"
+                                   [maxDate]="maxDate"
                                    [(ngModel)]="Employee.birthDate"
-                                   #nameModel="ngModel"
-                                   #nameEl />
+                                   bsDatepicker />
 
                             <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
                                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
@@ -155,11 +153,9 @@
                                name="description"
                                id="description"
                                required
-                               minlength="2"
-                               maxlength="32"
+                               [maxDate]="maxDate"
                                [(ngModel)]="Employee.description"
-                               #nameModel="ngModel"
-                               #nameEl />
+                               bsDatepicker />
                     </div>
                 </div>
             </tab>

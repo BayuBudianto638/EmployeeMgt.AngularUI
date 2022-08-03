@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientJsonpModule } from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
@@ -41,6 +43,7 @@ import { SidebarMenuComponent } from './layout/sidebar-menu.component';
 import { EmployeeComponent } from './HR/employee/employee.component';
 import { CreateEmployeeComponent } from './HR/employee/create-employee/create-employee.component';
 import { EditEmployeeComponent } from './HR/employee/edit-employee/edit-employee.component';
+import { BsDatepickerModule, BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 
 @NgModule({
     declarations: [
@@ -92,8 +95,10 @@ import { EditEmployeeComponent } from './HR/employee/edit-employee/edit-employee
         ServiceProxyModule,
         SharedModule,
         NgxPaginationModule,
+        CollapseModule,
+        BsDatepickerModule.forRoot()
     ],
-    providers: [],
+    providers: [BsDatepickerConfig],
     entryComponents: [
         // tenants
         CreateTenantDialogComponent,

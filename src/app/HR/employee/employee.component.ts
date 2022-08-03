@@ -24,12 +24,16 @@ export class EmployeeComponent extends PagedListingComponentBase<EmployeeDto> im
     ];
     dateNowISO: Date;
     advancedFiltersVisible = false;
+    searchBy: string;
+    userName: string;
+    IsGroup: boolean;
+    IsUserName: boolean;
 
     constructor(injector: Injector,
         private _employeeService: EmployeeServiceProxy,
         private _modalService: BsModalService) { super(injector); }
 
-    ngOnInit(): void {   
+    ngOnInit(): void {
         this.refresh();
     }
 
@@ -72,6 +76,32 @@ export class EmployeeComponent extends PagedListingComponentBase<EmployeeDto> im
         );
     }
 
+    onItemChange(value) {
+        this.IsGroup == false;
+        this.IsUserName == true;
+    }
+
+
+    searchByName(
+        request: PagedEmployeeRequestDto,
+        pageNumber: number,
+        finishedCallback: Function
+    ): void {
+        this.userName = this.keyword.toString();
+
+        this._employeeService
+            .getByUserName(request.keyword, request.skipCount, request.maxResultCount, this.userName)
+            .pipe(
+                finalize(() => {
+                    finishedCallback();
+                })
+            )
+            .subscribe((result: EmployeeDtoPagedResultDto) => {
+                this.Employees = result.items;
+                this.showPaging(result, pageNumber);
+            });
+    }
+
     createEmployee() {
         this.showCreateOrEditEmployeeDialog();
     }
@@ -105,5 +135,4 @@ export class EmployeeComponent extends PagedListingComponentBase<EmployeeDto> im
             this.refresh();
         });
     }
-
 }

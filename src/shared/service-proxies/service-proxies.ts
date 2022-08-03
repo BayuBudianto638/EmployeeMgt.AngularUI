@@ -3782,11 +3782,11 @@ export class EmployeeDto implements IEmployeeDto {
     firstName: string;
     lastName: string;
     email: string;
-    birthDate: Date;
+    birthDate: string;
     basicSalary: number;
     status: string;
     group: string;
-    description: Date;
+    description: string;
 
     constructor(data?: IEmployeeDto) {
         if (data) {
@@ -3849,11 +3849,11 @@ export interface IEmployeeDto {
     firstName: string;
     lastName: string;
     email: string;
-    birthDate: Date;
+    birthDate: string;
     basicSalary: number;
     status: string;
     group: string;
-    description: Date;
+    description: string;
 }
 
 export class EmployeeDtoPagedResultDto implements IEmployeeDtoPagedResultDto {
@@ -3916,11 +3916,11 @@ export class CreateEmployeeDto implements ICreateEmployeeDto {
     firstName: string;
     lastName: string;
     email: string;
-    birthDate: Date;
+    birthDate: string;
     basicSalary: number;
     status: string;
     group: string;
-    description: Date;
+    description: string;
 
     constructor(data?: ICreateEmployeeDto) {
         if (data) {
@@ -3980,11 +3980,11 @@ export interface ICreateEmployeeDto {
     firstName: string;
     lastName: string;
     email: string;
-    birthDate: Date;
+    birthDate: string;
     basicSalary: number;
     status: string;
     group: string;
-    description: Date;
+    description: string;
 }
 
 export class EmployeeEditDto implements IEmployeeEditDto {
@@ -3993,11 +3993,11 @@ export class EmployeeEditDto implements IEmployeeEditDto {
     firstName: string;
     lastName: string;
     email: string;
-    birthDate: Date;
+    birthDate: string;
     basicSalary: number;
     status: string;
     group: string;
-    description: Date;
+    description: string;
 
     constructor(data?: IEmployeeEditDto) {
         if (data) {
@@ -4061,11 +4061,11 @@ export interface IEmployeeEditDto {
     firstName: string;
     lastName: string;
     email: string;
-    birthDate: Date;
+    birthDate: string;
     basicSalary: number;
     status: string;
     group: string;
-    description: Date;
+    description: string;
 }
 
 export class GetEmployeeForEditOutput implements IGetEmployeeForEditOutput {
@@ -4143,6 +4143,8 @@ export class EmployeeServiceProxy {
                 "Accept": "text/plain"
             })
         };
+
+        console.log(content_);
 
         return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_: any) => {
             return this.processCreate(response_);
@@ -4467,6 +4469,76 @@ export class EmployeeServiceProxy {
             }));
         }
         return _observableOf<GetEmployeeForEditOutput>(<any>null);
+    }
+
+    /**
+    * @param keyword (optional) 
+    * @param isActive (optional) 
+    * @param skipCount (optional) 
+    * @param maxResultCount (optional) 
+    * @return Success
+    */
+    getByUserName(keyword: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined, userName:string | undefined): Observable<EmployeeDtoPagedResultDto> {
+        let url_ = this.baseUrl + "/api/services/app/Employee/GetByUserName?";
+        if (keyword === null)
+            throw new Error("The parameter 'keyword' cannot be null.");
+        else if (keyword !== undefined)
+            url_ += "Keyword=" + encodeURIComponent("" + keyword) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        else if (userName !== undefined)
+            url_ += "userName=" + encodeURIComponent("" + userName);
+
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_: any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_: any) => {
+            return this.processGetByUserName(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetByUserName(<any>response_);
+                } catch (e) {
+                    return <Observable<EmployeeDtoPagedResultDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<EmployeeDtoPagedResultDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetByUserName(response: HttpResponseBase): Observable<EmployeeDtoPagedResultDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+                (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); } }
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+                let result200: any = null;
+                let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result200 = EmployeeDtoPagedResultDto.fromJS(resultData200);
+                return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+                return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<EmployeeDtoPagedResultDto>(<any>null);
     }
 
     /**

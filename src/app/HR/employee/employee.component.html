@@ -56,43 +56,35 @@
                                     <div class="col-md-6">
                                         <div class="form-group row mb-0">
                                             <label class="col-md-3 col-form-label">
-                                                {{ "IsActive" | localize }}
+                                                {{ "SearchBy" | localize }}
                                             </label>
                                             <div class="col-md-9 pt-2">
                                                 <div class="custom-control custom-radio d-inline">
                                                     <input type="radio"
                                                            class="custom-control-input"
-                                                           id="isActiveAll"
-                                                           name="isActive"
-                                                           [(ngModel)]="isActive"
-                                                           [value]="undefined"
-                                                           checked />
-                                                    <label class="custom-control-label" for="isActiveAll">
-                                                        {{ "All" | localize }}
+                                                           id="IsUserName"
+                                                           name="IsUserName"
+                                                           [(ngModel)]="IsUserName"
+                                                           [value]="IsUserName"
+                                                           checked
+                                                           (change)="onItemChange($event.target.value)"/>
+                                                    <label class="custom-control-label" for="userName">
+                                                        {{ "userName" | localize }}
                                                     </label>
                                                 </div>
                                                 <div class="custom-control custom-radio d-inline mx-3">
                                                     <input type="radio"
                                                            class="custom-control-input"
-                                                           id="isActiveActive"
-                                                           name="isActive"
-                                                           [(ngModel)]="isActive"
-                                                           [value]="true" />
+                                                           id="IsGroup"
+                                                           name="IsGroup"
+                                                           [(ngModel)]="IsGroup"
+                                                           [value]="IsGroup"
+                                                           unchecked
+                                                           (change)="onItemChange($event.target.value)"
+                                                           />
                                                     <label class="custom-control-label"
-                                                           for="isActiveActive">
-                                                        {{ "Yes" | localize }}
-                                                    </label>
-                                                </div>
-                                                <div class="custom-control custom-radio d-inline">
-                                                    <input type="radio"
-                                                           class="custom-control-input"
-                                                           id="isActivePassive"
-                                                           name="isActive"
-                                                           [(ngModel)]="isActive"
-                                                           [value]="false" />
-                                                    <label class="custom-control-label"
-                                                           for="isActivePassive">
-                                                        {{ "No" | localize }}
+                                                           for="group">
+                                                        {{ "group" | localize }}
                                                     </label>
                                                 </div>
                                             </div>
@@ -104,7 +96,7 @@
                         <div class="card-footer">
                             <button type="button"
                                     class="btn bg-blue"
-                                    (click)="getDataPage(1)">
+                                    (click)="searchByName(1,1)">
                                 {{ "Search" | localize }}
                             </button>
                             <button type="button"

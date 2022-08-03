@@ -12,9 +12,9 @@ import { AppComponentBase } from '../../../../shared/app-component-base';
 import { CreateEmployeeDto, EmployeeDto, EmployeeServiceProxy } from '../../../../shared/service-proxies/service-proxies';
 
 @Component({
-  selector: 'app-create-employee',
-  templateUrl: './create-employee.component.html',
-  styleUrls: ['./create-employee.component.css']
+    selector: 'app-create-employee',
+    templateUrl: './create-employee.component.html',
+    styleUrls: ['./create-employee.component.css']
 })
 export class CreateEmployeeComponent extends AppComponentBase implements OnInit {
     @ViewChild('birthDate') birthDate: ElementRef;
@@ -22,6 +22,8 @@ export class CreateEmployeeComponent extends AppComponentBase implements OnInit 
     saving = false;
     Employee = new EmployeeDto();
     groups: Array<string>;
+
+    maxDate = new Date();
 
     @Output() onSave = new EventEmitter<any>();
 
@@ -31,30 +33,37 @@ export class CreateEmployeeComponent extends AppComponentBase implements OnInit 
         public bsModalRef: BsModalRef
     ) {
         super(injector);
+        this.maxDate.setDate(this.maxDate.getDate() + 7);
     }
 
-    ngOnInit(): void {       
+    ngOnInit(): void {
         this.getGroup();
     }
 
-    onShown(): void {
-        //$.AdminBSB.input.activate($(this.modalContent.nativeElement));
-        //$(this.birthDate.nativeElement).datetimepicker({
-        //    locale: abp.localization.currentLanguage.name,
-        //    format: 'L'
-        //});
-    }
-
     getGroup(): void {
-        console.log("enter group");
         let groupsItem: Array<string>;
         groupsItem = ['Direktur', 'Manager', 'Supervisor'];
         this.groups = groupsItem;
     }
 
+    format(date) {
+        date = new Date(date);
+
+        var day = ('0' + date.getDate()).slice(-2);
+        var month = ('0' + (date.getMonth() + 1)).slice(-2);
+        var year = date.getFullYear();
+
+        return month + '/' + day + '/' + year;
+    }
+
     save(): void {
         this.saving = true;
-        console.log(this.Employee);
+        let birthDate =this.format(this.Employee.birthDate);
+        this.Employee.birthDate = birthDate;
+
+        let newDate = this.format(this.Employee.description);
+        this.Employee.description = newDate;
+
         const employee = new CreateEmployeeDto();
         employee.init(this.Employee);
 
